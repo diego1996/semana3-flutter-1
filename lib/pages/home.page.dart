@@ -11,6 +11,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ArticleProvider articleProvider = ArticleProvider();
+  Future<List<Article>> futureArticles = Future.value([]);
+  int pages = 0;
+
+  @override
+  void initState() {
+    futureArticles =
+        articleProvider.getArticlesByName(search: "tesla", page: 1);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +28,31 @@ class _HomePageState extends State<HomePage> {
         title: Text("Inicio"),
       ),
       body: _body(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            articleProvider.getArticlesByName(search: "tesla", page: pages++);
+          });
+        },
+        child: Icon(Icons.new_label),
+      ),
     );
   }
 
   _body() {
-    articleProvider.getArticlesByName("tesla");
-    return Text("Texto de prueba");
+    return FutureBuilder(
+        future: futureArticles,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<Text> list = [];
+            snapshot.data.forEach((item) => {list.add(Text(item.author))});
+            return ListView(
+              children: list,
+            );
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
   }
 }

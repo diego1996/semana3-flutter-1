@@ -10,13 +10,19 @@ class ArticleProvider {
   String _sortByValue = "publishedAt";
   String _apiKeyParam = "apiKey";
   String _apiKeyValue = "49f55356f5b94455822fd21079c5efcb";
+  String _pageSizeParam = "pageSize";
+  String _pageSizeValue = "50";
+  String _pageParam = "page";
+  String _pageValue = "1";
 
-  Future<List<Article>> getArticlesByName(String search) async {
+  Future<List<Article>> getArticlesByName({String search = "", int page = 1}) async {
     List<Article> articles = [];
     var url = Uri.https(_baseUrl, _pathEveryThing, {
       _searchParam: search,
       _sortByParam: _sortByValue,
-      _apiKeyParam: _apiKeyValue
+      _apiKeyParam: _apiKeyValue,
+      _pageSizeParam: _pageSizeValue,
+      _pageParam: _pageValue
     });
 
     var response = await http.get(url);
