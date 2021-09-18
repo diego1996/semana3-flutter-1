@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semana3noticias/models/article.model.dart';
 import 'package:semana3noticias/providers/articles.provider.dart';
 
 class HomePage extends StatefulWidget {

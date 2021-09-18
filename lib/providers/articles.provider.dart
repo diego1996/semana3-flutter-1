@@ -11,7 +11,8 @@ class ArticleProvider {
   String _apiKeyParam = "apiKey";
   String _apiKeyValue = "49f55356f5b94455822fd21079c5efcb";
 
-  getArticlesByName(String search) async {
+  Future<List<Article>> getArticlesByName(String search) async {
+    List<Article> articles = [];
     var url = Uri.https(_baseUrl, _pathEveryThing, {
       _searchParam: search,
       _sortByParam: _sortByValue,
@@ -23,12 +24,10 @@ class ArticleProvider {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
       var articlesCount = jsonResponse['totalResults'];
-      // List<Article> articles = jsonResponse['articles'] as List<Article>;
+      jsonResponse['articles']
+          .forEach((item) => {articles.add(Article.fromJson(item))});
       print('Number of articles found: $articlesCount.');
-      // print('Titulo del primer articulo: ${articles.first.title}.');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-      throw Exception("Request failed with status: ${response.statusCode}.");
     }
+    return articles;
   }
 }
