@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:semana3noticias/models/article.model.dart';
+import 'package:semana3noticias/pages/article-detail.page.dart';
 
 class CardWidget extends StatelessWidget {
   final Article article;
@@ -10,7 +11,12 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ArticleDetail(article: article)));
+      },
       child: Padding(
         padding: EdgeInsets.all(8.0),
         child: Container(

@@ -8,40 +8,9 @@ class ArticleDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18, 10, 0, 10),
-            child: Row(
-              children: [
-                Text(DateFormat("dd-MM-yyy").format(article.publishedAt))
-              ],
-            ),
-          ),
-          article.urlToImage == ''
-              ? Image(image: AssetImage('assets/no-image.jpg'))
-              : FadeInImage(
-              placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage(article.urlToImage)),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              article.title,
-            ),
-          ),
-          /*Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                article.description,
-              ),
-            ),*/
-        ],
-      ),
-      decoration: BoxDecoration(color: Colors.black26),
+    return Scaffold(
+      appBar: AppBar(title: Text(article.title)),
+
     );
   }
 }
