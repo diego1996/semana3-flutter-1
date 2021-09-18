@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:semana3noticias/models/article.model.dart';
 import 'package:semana3noticias/providers/articles.provider.dart';
+import 'package:semana3noticias/widgets/card.widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,7 +32,8 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            articleProvider.getArticlesByName(search: "tesla", page: pages++);
+            futureArticles = articleProvider.getArticlesByName(
+                search: "tesla", page: pages++);
           });
         },
         child: Icon(Icons.new_label),
@@ -44,10 +46,11 @@ class _HomePageState extends State<HomePage> {
         future: futureArticles,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            List<Text> list = [];
-            snapshot.data.forEach((item) => {list.add(Text(item.author))});
+            List<CardWidget> listCard = [];
+            snapshot.data
+                .forEach((item) => {listCard.add(CardWidget(article: item))});
             return ListView(
-              children: list,
+              children: listCard,
             );
           }
           return Center(
