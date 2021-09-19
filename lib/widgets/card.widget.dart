@@ -44,12 +44,6 @@ class CardWidget extends StatelessWidget {
                   article.title,
                 ),
               ),
-              /*Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                article.description,
-              ),
-            ),*/
             ],
           ),
           decoration: BoxDecoration(
